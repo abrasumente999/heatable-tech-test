@@ -21,13 +21,13 @@ export default async function PokemonList() {
   const [allPokemon] = await Promise.all([pokemonList]);
 
   return (
-    <>
+    <section className="flex flex-col md:flex-row m-auto flex-wrap justify-center content-center w-full">
       {allPokemon.map((pokemon: PokemonType) => {
         return (
           /* @ts-expect-error Server Component */
           <PokemonCard key={pokemon.name} pokemonName={pokemon} />
         );
       })}
-    </>
+    </section>
   );
 }

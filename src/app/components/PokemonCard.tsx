@@ -30,21 +30,22 @@ export default async function PokemonCard({ pokemonName }: PokemonCardProps) {
     <Link
       key={pokemon.id}
       href="#"
-      className="flex flex-row bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+      className="flex flex-col justify-center items-center bg-white border border-gray-200 rounded-lg shadow  lg:w-1/4 m-2 hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 h-80 lg:h-96  w-4/6 sm:w-2/6"
     >
-      <div className="flex justify-between p-4 leading-normal">
+      <div className="leading-normal">
+        <h5 className="mb-2 text-2xl font-bold text-gray-800 dark:text-white text-center">
+          {capitaliseFirstLetter(pokemon.name)}
+        </h5>
+
         <Image
           src={pokemon.sprites.front_default}
           alt={`Sprite of ${pokemon.name}`}
           width={200}
           height={200}
         />
-        <div className="flex flex-col">
-          <h5 className="mb-2 text-2xl font-bold text-gray-800 dark:text-white">
-            {capitaliseFirstLetter(pokemon.name)}
-          </h5>
 
-          <h6 className="mb-1 font-semibold text-gray-700 dark:text-gray-400">
+        <div className="flex justify-center">
+          <h6 className="mb-1 font-semibold text-gray-700 dark:text-gray-400 mr-3">
             {"Type:"}
           </h6>
 
