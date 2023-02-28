@@ -2,12 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import capitaliseFirstLetter from "../utils/utils";
 
-async function getPokemonByUrl(name: string) {
-  const res = await fetch(
-    `https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`
-  );
+export async function getPokemon(name: string) {
+  const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
   if (!res.ok) {
-    throw new Error(`Failed to fetch data for ${name}`);
+    throw new Error(`Failed to fetch data`);
   }
   const data = await res.json();
   return data;
@@ -17,19 +15,19 @@ type PokemonCardProps = {
   pokemonName: { name: string; url: string };
 };
 
-type TypeProps = {
+export type TypeProps = {
   slot: number;
   type: { name: string; url: string };
 };
 
 export default async function PokemonCard({ pokemonName }: PokemonCardProps) {
-  const data = getPokemonByUrl(pokemonName.name);
+  const data = getPokemon(pokemonName.name);
   const [pokemon] = await Promise.all([data]);
 
   return (
     <Link
       key={pokemon.id}
-      href="#"
+      href={`/pokemon/${pokemon.name}`}
       className="flex flex-col justify-center items-center bg-white border border-gray-200 rounded-lg shadow  lg:w-1/4 m-2 hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 h-80 lg:h-96  w-4/6 sm:w-2/6"
     >
       <div className="leading-normal">
@@ -38,7 +36,7 @@ export default async function PokemonCard({ pokemonName }: PokemonCardProps) {
         </h5>
 
         <Image
-          src={pokemon.sprites.front_default}
+          src={pokemon.sprites.other["official-artwork"].front_default}
           alt={`Sprite of ${pokemon.name}`}
           width={200}
           height={200}
