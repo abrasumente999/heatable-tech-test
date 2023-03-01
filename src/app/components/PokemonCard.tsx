@@ -28,9 +28,9 @@ export default async function PokemonCard({ pokemonName }: PokemonCardProps) {
     <Link
       key={pokemon.id}
       href={`/pokemon/${pokemon.name}`}
-      className="flex flex-col justify-center items-center bg-white border border-gray-200 rounded-lg shadow  lg:w-1/4 m-2 hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 h-80 lg:h-96  w-4/6 sm:w-2/6"
+      className="flex flex-col justify-center items-center bg-white border border-gray-200 rounded-2xl shadow h-80 w-2/3 max-w-xs m-1 sm:w-2/3 lg:w-1/4 lg:h-96 lg:m-3 transition ease-in-out delay-50 duration-300 hover:bg-slate-50  dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
     >
-      <div className="leading-normal">
+      <div className="leading-normal ">
         <h5 className="mb-2 text-2xl font-bold text-gray-800 dark:text-white text-center">
           {capitaliseFirstLetter(pokemon.name)}
         </h5>
