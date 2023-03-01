@@ -12,7 +12,7 @@ export async function getPokemon(name: string) {
 }
 
 type PokemonCardProps = {
-  pokemonName: { name: string; url: string };
+  pokemonName: { name: string };
 };
 
 export type TypeProps = {
@@ -25,38 +25,40 @@ export default async function PokemonCard({ pokemonName }: PokemonCardProps) {
   const [pokemon] = await Promise.all([data]);
 
   return (
-    <Link
-      key={pokemon.id}
-      href={`/pokemon/${pokemon.name}`}
-      className="flex flex-col justify-center items-center bg-white border border-gray-200 rounded-2xl shadow h-80 w-2/3 max-w-xs m-1 sm:w-2/3 lg:w-1/4 lg:h-96 lg:m-3 transition ease-in-out delay-50 duration-300 hover:bg-slate-50  dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
-    >
-      <div className="leading-normal ">
-        <h5 className="mb-2 text-2xl font-bold text-gray-800 dark:text-white text-center">
-          {capitaliseFirstLetter(pokemon.name)}
-        </h5>
+    <>
+      <Link
+        key={pokemon.id}
+        href={`/pokemon/${pokemon.name}`}
+        className="flex flex-col justify-center items-center bg-white border border-gray-200 rounded-2xl shadow h-80  m-2 lg:max-w-md lg:m-3 transition ease-in-out delay-50 duration-300 hover:bg-slate-50  dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+      >
+        <div className="leading-normal ">
+          <h5 className="mb-2 text-2xl font-bold text-gray-800 dark:text-white text-center">
+            {capitaliseFirstLetter(pokemon.name)}
+          </h5>
 
-        <Image
-          src={pokemon.sprites.other["official-artwork"].front_default}
-          alt={`Sprite of ${pokemon.name}`}
-          width={200}
-          height={200}
-        />
+          <Image
+            src={pokemon.sprites.other["official-artwork"].front_default}
+            alt={`Sprite of ${pokemon.name}`}
+            width={200}
+            height={200}
+          />
 
-        <div className="flex justify-center">
-          <h6 className="mb-1 font-semibold text-gray-700 dark:text-gray-400 mr-3">
-            {"Type:"}
-          </h6>
+          <div className="flex justify-center">
+            <h6 className="mb-1 font-semibold text-gray-700 dark:text-gray-400 mr-3">
+              {"Type:"}
+            </h6>
 
-          <ul className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-            {pokemon.types.map((type: TypeProps) => {
-              const pokemonType = type.type.name;
-              return (
-                <li key={type.slot}>{capitaliseFirstLetter(pokemonType)}</li>
-              );
-            })}
-          </ul>
+            <ul className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+              {pokemon.types.map((type: TypeProps) => {
+                const pokemonType = type.type.name;
+                return (
+                  <li key={type.slot}>{capitaliseFirstLetter(pokemonType)}</li>
+                );
+              })}
+            </ul>
+          </div>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </>
   );
 }

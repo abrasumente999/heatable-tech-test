@@ -26,7 +26,7 @@ export default async function PokemonList() {
 
   return (
     <>
-      <Search />
+      <Search allPokemon={allPokemon} />
       <section className="flex flex-col md:flex-row m-auto flex-wrap justify-center content-center ">
         {allPokemon.results.map((pokemon: PokemonType) => {
           return (
