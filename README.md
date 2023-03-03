@@ -1,6 +1,6 @@
 # Tech test - Heatable
 
-Link:
+Link to deployed app: https://heatable-tech-test.vercel.app/
 
 ## Comments
 
