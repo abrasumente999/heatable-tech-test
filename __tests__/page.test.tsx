@@ -7,7 +7,6 @@ describe("NavBar", () => {
   it("renders the nav bar text", () => {
     render(<NavBar />);
 
-    expect(screen.getByText("Pokémon")).toBeInTheDocument();
-    expect(screen.getByText("Search")).toBeInTheDocument();
+    expect(screen.getByText("Gotta catch 'em all!")).toBeInTheDocument();
   });
 });
