@@ -1,5 +1,7 @@
 # Tech test - Heatable
 
+A Pokedex app using data froim PokeApi, made with TypeScript, Next.js 13.2 and Tailwind CSS.
+
 Link to deployed app: https://heatable-tech-test.vercel.app/
 
 ## Comments
