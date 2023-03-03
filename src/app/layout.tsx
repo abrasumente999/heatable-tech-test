@@ -1,5 +1,16 @@
 import NavBar from "./components/NavBar";
 import "./globals.css";
+import { Inter, Merriweather_Sans } from "@next/font/google";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--display-font",
+});
+
+const merriweather = Merriweather_Sans({
+  subsets: ["latin"],
+  variable: "--body-font",
+});
 
 export const metadata = {
   title: "Pokémon",
@@ -12,9 +23,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className=" dark:bg-gray-800 bg-slate-300">
+    <html lang="en" className={`${inter.variable} ${merriweather.variable}`}>
+      <body className=" bg-slate-300 ">
         <NavBar />
+        <section className="pt-2  mx-auto text-gray-600 flex flex-wrap items-center justify-center --display-font w-full">
+          <input
+            className=" --display-font border-2 border-gray-300 bg-white h-10 px-5  mr-2 rounded-lg text-sm focus:outline-none"
+            type="text"
+            name="search"
+            placeholder="Eg: Pikachu"
+          />
+
+          <button
+            type="submit"
+            className="bg-white hover:bg-gray-100 text-gray-800 font-medium h-9 px-4 rounded-lg"
+          >
+            Search
+          </button>
+        </section>
         {children}
       </body>
     </html>
