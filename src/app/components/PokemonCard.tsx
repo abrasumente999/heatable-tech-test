@@ -1,9 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
-import capitaliseFirstLetter from "../utils/utils";
+import { PokemonType } from ".././components/PokemonList";
+import { capitaliseFirstLetter } from "../utils/utils";
 
-export async function getPokemon(name: string) {
-  const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
+type PokemonCardProps = {
+  pokemonData: PokemonType;
+};
+
+export type PokemonTypeProps = {
+  slot: number;
+  type: { name: string; url: string };
+};
+
+export async function getPokemon(nameOrId: string | number) {
+  const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${nameOrId}`);
   if (!res.ok) {
     throw new Error(`Failed to fetch data`);
   }
@@ -11,28 +21,24 @@ export async function getPokemon(name: string) {
   return data;
 }
 
-type PokemonCardProps = {
-  pokemonName: { name: string };
-};
+export default async function PokemonCard({ pokemonData }: PokemonCardProps) {
+  const data = getPokemon(pokemonData.name);
 
-export type TypeProps = {
-  slot: number;
-  type: { name: string; url: string };
-};
-
-export default async function PokemonCard({ pokemonName }: PokemonCardProps) {
-  const data = getPokemon(pokemonName.name);
   const [pokemon] = await Promise.all([data]);
+
+  const types = pokemon.types.map((type: PokemonTypeProps) => {
+    return <li key={type.slot}>{capitaliseFirstLetter(type.type.name)}</li>;
+  });
 
   return (
     <>
       <Link
         key={pokemon.id}
-        href={`/pokemon/${pokemon.name}`}
-        className="flex flex-col justify-center items-center bg-white border border-gray-200 rounded-2xl shadow h-80  m-2 lg:max-w-md lg:m-3 transition ease-in-out delay-50 duration-300 hover:bg-slate-50  dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+        href={`/pokemon/${pokemon.id}`}
+        className="flex flex-col justify-start bg-white border p-5 border-gray-200 rounded-2xl shadow h-80  m-2 lg:max-w-md lg:m-4 lg:p-5 transition ease-in-out delay-50 duration-300 hover:bg-slate-50  dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
       >
         <div className="leading-normal ">
-          <h5 className="mb-2 text-2xl font-bold text-gray-800 dark:text-white text-center">
+          <h5 className=" text-2xl font-bold text-gray-800 dark:text-white text-center">
             {capitaliseFirstLetter(pokemon.name)}
           </h5>
 
@@ -43,18 +49,13 @@ export default async function PokemonCard({ pokemonName }: PokemonCardProps) {
             height={200}
           />
 
-          <div className="flex justify-center">
+          <div className="flex justify-center py-2">
             <h6 className="mb-1 font-semibold text-gray-700 dark:text-gray-400 mr-3">
               {"Type:"}
             </h6>
 
             <ul className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              {pokemon.types.map((type: TypeProps) => {
-                const pokemonType = type.type.name;
-                return (
-                  <li key={type.slot}>{capitaliseFirstLetter(pokemonType)}</li>
-                );
-              })}
+              {types}
             </ul>
           </div>
         </div>
